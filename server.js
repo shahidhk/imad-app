@@ -2,7 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 
-var Pool = require('pg').Pool;
+
 var config = {
     host: process.env.DB_HOST,
     user: process.env.DB_USERNAME,
@@ -10,7 +10,10 @@ var config = {
     database: process.env.DB_DATABASE
 };
 
+var Pool = require('pg').Pool;
 var pool = new Pool(config);
+console.log(Pool);
+console.log(pool);
 
 var app = express();
 app.use(morgan('combined'));
@@ -28,13 +31,15 @@ app.get('/ui/madi.png', function (req, res) {
 });
 
 app.get('/dbtest', function(req, res) {
+    console.log('start');
     pool.query('SELECT * FROM test', function (err, result){
         if (err) {
             res.status(500).send(err.toString());
         } else {
             res.send(JSON.stringify(result));
         }
-    })
+    });
+    console.log('end');
     
 });
 
