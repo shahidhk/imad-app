@@ -2,6 +2,16 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 
+var Pool = require('pg').Pool;
+var config = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+};
+
+var pool = new Pool(config);
+
 var app = express();
 app.use(morgan('combined'));
 
@@ -17,13 +27,14 @@ app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
-app.get('/dbcreds', function(req, res) {
-   var user = process.env.DB_USERNAME;
-   var pass = process.env.DB_PASSWORD;
-   
-   console.log(user, pass);
-   
-   res.send(user + ' ' + pass);
+app.get('/dbtest', function(req, res) {
+    pool.query('SELECT * FROM test', function (err, result){
+        if (err) {
+            res.status(500).send(err.toString());
+        } else {
+            res.send(JSON.stringify(result));
+        }
+    })
     
 });
 
