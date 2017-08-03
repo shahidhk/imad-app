@@ -17,6 +17,15 @@ app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
+app.get('/dbcreds', function(req, res) {
+   var user = process.env.DB_USERNAME;
+   var pass = process.env.DB_PASSWORD;
+   
+   console.log(user, pass);
+   
+   res.send(user + ' ' + pass);
+    
+});
 
 var port = 80; // Use 8080 for local development because you might already have apache running on 80
 app.listen(port, function () {
