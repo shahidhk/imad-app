@@ -12,8 +12,7 @@ var config = {
 
 var Pool = require('pg').Pool;
 var pool = new Pool(config);
-console.log(Pool);
-console.log(pool);
+
 console.log(config);
 
 var app = express();
