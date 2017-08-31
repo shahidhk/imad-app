@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/article-one.html', function (req, res) {
-    var data1 = {
+    var data = {
     "title": "Article 1",
     "heading" : "Article 1 heading",
     "content": "Article 1 content"
