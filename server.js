@@ -49,7 +49,7 @@ app.get('/article-one.html', function (req, res) {
     "content": "Article 1 content"
 };
 
-  res.send(createTemplate(data));
+  res.send(data);
 });
 
 
